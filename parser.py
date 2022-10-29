@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 
-url= 'https://www.list.am/category/56?pfreq=1&po=1&n=1&price1=&price2=&crc=-1&_a5=0&_a39=0&_a40=0&_a11_1=&_a11_2=&_a4=0&_a37=0&_a3_1=&_a3_2=&_a38=0&gl=2'
+url = 'https://www.list.am/category/56?pfreq=1&po=1&n=1&price1=&price2=&crc=-1&_a5=0&_a39=0&_a40=0&_a11_1=&_a11_2=&_a4=0&_a37=0&_a3_1=&_a3_2=&_a38=0&gl=2'
 base_url = 'https://www.list.am/ru'
 
 
@@ -50,8 +50,11 @@ def get_list_advertisements() -> list:
         bar = all_desc.select_one('div#abar')
 
         if all((info, all_desc, bar)):
-            image = info.select_one('div.pv').select_one('img').get('src')
-            price = bar.select_one('div.price').find('span', {'class': 'price x'}).text
+            image = 'https:' + info.select_one('div.pv').select_one('img').get('src').replace('.webp', '.jpg')
+            try:
+                price = bar.select_one('div.price').find('span', {'class': 'price x'}).text
+            except AttributeError:
+                price = 'Не указана'
             place = bar.select_one('div.loc').select_one('a').text
             desc = all_desc.select_one('h1').text
             args = (url, desc, price, place, image)
@@ -60,8 +63,5 @@ def get_list_advertisements() -> list:
     return advertisements
 
 
-a = get_list_advertisements()
 
-for i in a:
-    print(i.__dict__)
 
