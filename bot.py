@@ -1,5 +1,6 @@
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
+from aiogram.types import InputFile
 from aiogram.utils import executor
 
 from config import TOKEN
@@ -13,8 +14,8 @@ dp = Dispatcher(bot)
 async def test(message: types.Message):
     ads = parser.get_list_advertisements()
     for ad in ads:
-        # string = f'{ad.url}\n{ad.desc}\n{ad.price}\n{ad.place}\n{ad.image}'
+        photo = InputFile(ad.image_path)
         string = f'{ad.url}\n\n{ad.desc}\n\n{ad.price}\n\n{ad.place}\n'
-        await message.answer(string, disable_web_page_preview=True)
+        await bot.send_photo(chat_id=message.chat.id, photo=photo, caption=string)
 
 executor.start_polling(dp, skip_updates=True)
