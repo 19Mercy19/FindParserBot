@@ -32,3 +32,4 @@ class SQLighter:
     def close(self):
         """Закрываем соединение с БД"""
         self.connection.close()
+
