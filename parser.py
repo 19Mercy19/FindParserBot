@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-# from PIL import Image
 
 url = 'https://www.list.am/category/56?pfreq=1&po=1&n=1&price1=&price2=&crc=-1&_a5=0&_a39=0&_a40=0&_a11_1=&_a11_2=&_a4=0&_a37=0&_a3_1=&_a3_2=&_a38=0&gl=2'
 base_url = 'https://www.list.am/ru'
